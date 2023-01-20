@@ -149,7 +149,7 @@ void Game::setupSprite()
 	
 
 
-	if (m_MarioTexture.loadFromFile("ASSETS\\IMAGES\\mario-luigi-64.png"))
+	if (!m_MarioTexture.loadFromFile("ASSETS\\IMAGES\\mario-luigi-64.png"))
 	{
 		std::cout << "can't open marios picture" << std::endl;
 	}
