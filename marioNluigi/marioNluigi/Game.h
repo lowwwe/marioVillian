@@ -32,14 +32,15 @@ private:
 	void setupSprite();
 
 	sf::RenderWindow m_window; // main SFML window
-	sf::Font m_ArialBlackfont; // font used by message
-	sf::Text m_welcomeMessage; // text used for message on screen
+	
+	sf::Font m_marioFont; // font used for mario
+	sf::Text m_marioName; // text too display characters name
 	
 	bool m_exitGame; // control exiting game
 
 	sf::Texture m_MarioTexture; // texture for mario  luigi
 	sf::Sprite m_marioSprite; // sporite for martio andf luigi
-
+	sf::Vector2f m_marioLocation;// marios location
 };
 
 #endif // !GAME_HPP

@@ -103,6 +103,8 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	
+	m_marioSprite.setPosition(m_marioLocation);
 }
 
 /// <summary>
@@ -111,7 +113,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-	m_window.draw(m_welcomeMessage);
+	m_window.draw(m_marioName);
 	
 	m_window.draw(m_marioSprite);
 	
@@ -123,18 +125,18 @@ void Game::render()
 /// </summary>
 void Game::setupFontAndText()
 {
-	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
+	if (!m_marioFont.loadFromFile("ASSETS\\FONTS\\SuperMario256.ttf"))
 	{
-		std::cout << "problem loading arial black font" << std::endl;
+		std::cout << "problem loading mario  font" << std::endl;
 	}
-	m_welcomeMessage.setFont(m_ArialBlackfont);
-	m_welcomeMessage.setString("SFML Game 2");
-	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	m_welcomeMessage.setPosition(400.0f, 40.0f);
-	m_welcomeMessage.setCharacterSize(80U);
-	m_welcomeMessage.setOutlineColor(sf::Color::Green);
-	m_welcomeMessage.setFillColor(sf::Color::Black);
-	m_welcomeMessage.setOutlineThickness(9.0f);
+	m_marioName.setFont(m_marioFont);
+	m_marioName.setString("Mario");
+	
+	m_marioName.setPosition(400.0f, 50.0f);
+	m_marioName.setCharacterSize(60U);
+	m_marioName.setOutlineColor(sf::Color::Black);
+	m_marioName.setFillColor(sf::Color::Red);
+	m_marioName.setOutlineThickness(1.0f);
 
 }
 
@@ -147,11 +149,14 @@ void Game::setupSprite()
 	
 
 
-	if (!m_MarioTexture.loadFromFile("ASSETS\\IMAGES\\mario-luigi-64.png"))
+	if (m_MarioTexture.loadFromFile("ASSETS\\IMAGES\\mario-luigi-64.png"))
 	{
 		std::cout << "can't open marios picture" << std::endl;
 	}
 	m_marioSprite.setTexture(m_MarioTexture);
-	m_marioSprite.setPosition(sf::Vector2f{ 200.0f,250.0f });
+	m_marioSprite.setTextureRect(sf::IntRect(64, 0, 64, 148));
+	m_marioLocation = sf::Vector2f{ 32.0f,74.0f };
+	m_marioSprite.setPosition(m_marioLocation);
+	m_marioSprite.setOrigin(sf::Vector2f{ 32.0f,74.0f });
 	
 }
