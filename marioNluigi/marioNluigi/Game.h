@@ -11,6 +11,16 @@
 /// </summary>
 #include <SFML/Graphics.hpp>
 
+
+enum class Direction
+{
+	None,
+	Up,
+	Left,
+	Right,
+	Down
+};
+
 class Game
 {
 public:
@@ -27,6 +37,8 @@ private:
 	void processKeys(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
+	void checkDirection();
+	void move();
 	
 	void setupFontAndText();
 	void setupSprite();
@@ -37,7 +49,8 @@ private:
 	sf::Text m_marioName; // text too display characters name
 	
 	bool m_exitGame; // control exiting game
-
+	Direction m_direction{ Direction::None };
+	float m_speed = 2.345;
 	sf::Texture m_MarioTexture; // texture for mario  luigi
 	sf::Sprite m_marioSprite; // sporite for martio andf luigi
 	sf::Vector2f m_marioLocation;// marios location
