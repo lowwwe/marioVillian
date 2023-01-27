@@ -42,7 +42,10 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void changeCharacter();
 
+
+	bool m_isaMario{ false };// is mario the current character
 	sf::RenderWindow m_window; // main SFML window
 	
 	sf::Font m_marioFont; // font used for mario
