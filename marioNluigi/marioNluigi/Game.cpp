@@ -79,6 +79,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (sf::Event::KeyReleased == newEvent.type)
+		{
+			processKeyRelease(newEvent);
+		}
 	}
 }
 
@@ -95,7 +99,19 @@ void Game::processKeys(sf::Event t_event)
 	}
 	if (sf::Keyboard::Space == t_event.key.code)
 	{
-		changeCharacter();
+		if (m_canChange)
+		{
+			changeCharacter();
+			m_canChange = false;
+		}
+	}
+}
+
+void Game::processKeyRelease(sf::Event t_event)
+{
+	if (t_event.key.code = sf::Keyboard::Space)
+	{
+		m_canChange = true;
 	}
 }
 
@@ -111,6 +127,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	checkDirection();
 	move();
+	checkBoundries();
 	m_marioSprite.setPosition(m_marioLocation);
 
 }
@@ -176,6 +193,16 @@ void Game::move()
 	
 }
 
+void Game::centreText(sf::Text& t_text, float t_y)
+{
+	float x = 0.0f;
+	const float screenW = 800.0f;
+	sf::FloatRect rect = t_text.getGlobalBounds();
+	x = (screenW - rect.width) / 2.0f;
+	t_text.setPosition(x, t_y);
+
+}
+
 /// <summary>
 /// load the font and setup the text message for screen
 /// </summary>
@@ -201,6 +228,10 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
+	m_buffer.loadFromFile("ASSETS\\AUDIO\\mario.wav");
+	m_sound.setBuffer(m_buffer);
+	m_sound.play(); // test code
+
 
 	
 
@@ -231,5 +262,20 @@ void Game::changeCharacter()
 		m_marioName.setString("Mario");
 		m_marioName.setFillColor(sf::Color::Red);
 	}
+	centreText(m_marioName , 100.0f);
 	m_isaMario = !m_isaMario;
+}
+
+void Game::checkBoundries()
+{
+	const float RIGHT = m_marioSprite.getGlobalBounds().width / 2.0f;
+	const float TOP = m_marioSprite.getGlobalBounds().height / 2.0f;
+	if (m_marioLocation.x < RIGHT)
+	{
+		m_marioLocation.x = RIGHT;
+	}
+	if (m_marioLocation.y < TOP)
+	{
+		m_marioLocation.y = TOP;
+	}
 }

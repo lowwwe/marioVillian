@@ -10,6 +10,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 
 enum class Direction
@@ -35,14 +36,23 @@ private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processKeyRelease(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	void checkDirection();
 	void move();
+	// pass text opbject by refrence so method gets to work on m_marioName rather than a tempory copy
+	// & means address of or refrence
+	void centreText(sf::Text& t_text, float t_y);
 	
 	void setupFontAndText();
 	void setupSprite();
 	void changeCharacter();
+	void checkBoundries();
+
+
+	sf::SoundBuffer m_buffer;
+	sf::Sound m_sound;
 
 
 	bool m_isaMario{ false };// is mario the current character
@@ -51,6 +61,7 @@ private:
 	sf::Font m_marioFont; // font used for mario
 	sf::Text m_marioName; // text too display characters name
 	
+	bool m_canChange{ true };
 	bool m_exitGame; // control exiting game
 	Direction m_direction{ Direction::None };
 	float m_speed = 2.345;
